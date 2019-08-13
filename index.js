@@ -1,5 +1,5 @@
 const middleware = require('./src/middleware');
-const render = require('./src/render');
+const Renderer = require('./src/render');
 
 class NodeBox {
     constructor(options){
@@ -13,8 +13,8 @@ class NodeBox {
         return middleware(this.options.loglevel);
     }
 
-    render() {
-        return render;
+    getRenderer(res) {
+        return new Renderer(res, {loglevel: this.options.loglevel});
     }
 }
 
