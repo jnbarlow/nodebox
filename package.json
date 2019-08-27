@@ -1,5 +1,5 @@
 {
-  "name": "nodebox",
+  "name": "nodebox-framework",
   "version": "1.0.0",
   "description": "node/express framework based on Coldbox",
   "main": "index.js",
