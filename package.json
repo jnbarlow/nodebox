@@ -1,0 +1,36 @@
+{
+  "name": "nodebox-framework",
+  "version": "0.0.1",
+  "description": "node/express framework based on Coldbox",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd testsite && nodemon --watch . --watch ../src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnbarlow/nodebox.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "framework",
+    "html"
+  ],
+  "author": "John Barlow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jnbarlow/nodebox/issues"
+  },
+  "homepage": "https://github.com/jnbarlow/nodebox#readme",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "lodash": "^4.17.15",
+    "loglevel": "^1.6.3",
+    "loglevel-plugin-prefix": "^0.8.4"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
