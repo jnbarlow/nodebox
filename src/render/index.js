@@ -131,6 +131,8 @@ class Renderer {
                 this.log.error(e);
                 this.res.send('not found');
             }
+        } else {
+            this.res.json(this.vars);
         }
 
     }

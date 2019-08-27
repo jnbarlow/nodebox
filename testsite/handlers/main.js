@@ -7,6 +7,14 @@ class Main {
         this.nbr = new NodeBox({loglevel:"debug"}).getRenderer(res);
     }
 
+    preEvent() {
+        console.log('preEvent happens here!');
+    }
+
+    postEvent() {
+        console.log('postEvent happens here!');
+    }
+
     home() {
         this.nbr.set({
             view: 'home.html',
@@ -20,7 +28,17 @@ class Main {
             }
         })
         this.nbr.render();
-        
+    }
+
+    json() {
+        this.nbr.set({
+            layout: 'json',
+            vars: {
+                foo:'foo',
+                bar:'bar'
+            }
+        })
+        this.nbr.render();
     }
 }
 

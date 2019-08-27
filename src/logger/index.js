@@ -8,7 +8,7 @@ const colors = require('colors/safe');
  * available log levels: trace, debug, info, warn, error
  *
  * usage:
- *      const log = require('./utilities/logger')(<loglevel>, <component name>);
+ *      const log = require('logger')(<loglevel>, <component name>);
  *      log.debug('log');
  *      log.warn('some more logs);
  *

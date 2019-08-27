@@ -1,4 +1,5 @@
 const pathResolver = require('path');
+const _ = require('lodash');
 
 module.exports = (loglevel) => {
     const log = require('../logger')(loglevel, 'NodeBox Middleware');
@@ -20,7 +21,20 @@ module.exports = (loglevel) => {
             log.info(`Processing ${requirePath}, ${fcn}()`);
             const Handler = require(pathResolver.resolve(requirePath));
             const handler = new Handler(req, res);
+            
+            //fire handler's preEvent
+            if(_.isFunction(handler.preEvent)){
+                log.debug('Firing preEvent.');
+                handler.preEvent();
+            }
+
             handler[fcn]();
+
+            //fire handler's postEvent
+            if(_.isFunction(handler.postEvent)){
+                log.debug('Firing postEvent.');
+                handler.postEvent();
+            }
             
         } catch (e) {
             log.error(`Attempted ${requirePath}, ${fcn}()`);
