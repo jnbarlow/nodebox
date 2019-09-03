@@ -13,7 +13,7 @@ npm install nodebox-framework
 
 Then add it as middleware:
 
-```
+```javascript
 const  express  =  require('express');
 const  app  =  express();
 const  NodeBox  =  require('../index');
@@ -65,7 +65,7 @@ Views and layouts are composed using the template functionality of lodash.  As y
 There are a couple of different ways to assign views, layouts, and variables but the easiest is to initialize the Nodebox router with a config object that contains everything it needs.
 
 Below is an example handler:
-```
+```javascript
 class Main {
     constructor(req, res) {
         this.req = req;
@@ -100,11 +100,11 @@ class Main {
 module.exports = Main;
 ```
 The first thing to note is that your handler must take the express `req` and `res` objects.  Next, you need an instance of the Nodebox Renderer, so initialize a Nodebox object and grab it's renderer (the same logging rules apply here):
-```
+```javascript
 this.nbr = new NodeBox({loglevel:"debug"}).getRenderer(res);
 ```
 Finally, set up your handler method (in this case, I'm writing one for the default event: `main/home`:
-```
+```javascript
 home() {
         this.nbr.set({
             view: 'home.html',
@@ -133,7 +133,7 @@ Let's break down the config object above.
 Finally, call render on the Nodebox renderer to send a response back through express.
 
 ### Example Layout
-```
+```html
 <h1> Layout!</h1>
 <h3><%= subtitle %></h3>
 <div style='padding:40px;border:1px solid black';>
@@ -143,7 +143,7 @@ Finally, call render on the Nodebox renderer to send a response back through exp
 In the example above, you can see some of lodash's template engine at work.  You can reference any variable passed in the var structure here.  Also of note, the special `view` variable is the location in the page that the view is rendered.
 
 ### Example View
-```
+```html
 <h2>text from home.html</h2>
 <p>view var: <%= viewvar %></p>
 ```
@@ -151,7 +151,7 @@ Much in the same way the layout works, the view also uses the lowdash templating
 
 ### Rendering JSON
 Here is an example of a handler method that returns json.  Note, what ever is in the vars object gets sent to the browser:
-```
+```javascript
 json() {
     this.nbr.set({
         layout: 'json',
