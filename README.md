@@ -16,7 +16,7 @@ Then add it as middleware:
 ```javascript
 const  express  =  require('express');
 const  app  =  express();
-const  NodeBox  =  require('../index');
+const  NodeBox  =  require('nodebox-framework');
 const  nodeBox  =  new NodeBox({loglevel:'debug'});
 	
 app.use(nodeBox.getMiddleware());
