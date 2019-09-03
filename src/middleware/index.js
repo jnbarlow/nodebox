@@ -21,20 +21,25 @@ module.exports = (loglevel) => {
             log.info(`Processing ${requirePath}, ${fcn}()`);
             const Handler = require(pathResolver.resolve(requirePath));
             const handler = new Handler(req, res);
+            let shouldContinue = true;
             
             //fire handler's preEvent
             if(_.isFunction(handler.preEvent)){
                 log.debug('Firing preEvent.');
-                handler.preEvent();
+                const handlerValue = handler.preEvent();
+                shouldContinue = handlerValue || handlerValue == null;
             }
 
-            handler[fcn]();
+            if(shouldContinue){
+                handler[fcn]();
 
-            //fire handler's postEvent
-            if(_.isFunction(handler.postEvent)){
-                log.debug('Firing postEvent.');
-                handler.postEvent();
+                //fire handler's postEvent
+                if(_.isFunction(handler.postEvent)){
+                    log.debug('Firing postEvent.');
+                    handler.postEvent();
+                }
             }
+            
             
         } catch (e) {
             log.error(`Attempted ${requirePath}, ${fcn}()`);

@@ -179,4 +179,6 @@ The directory structure for the examples above would ultimately end up looking l
 ## Advanced concepts
 As you might have noticed, there are `preEvent` and `postEvent` functions in the handler.  This is a special interface that Nodebox looks for in every handler that lets you run arbitrary code before and after a handler function is executed.  You can use this for things like checking to see if a user is authenticated before executing anything in that handler.
 
+To stop processing, return `false` from the `preEvent` in your handler, and the route's main event and postEvent won't fire.
+
 
