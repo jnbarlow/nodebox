@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 module.exports = (loglevel) => {
     const log = require('../logger')(loglevel, 'NodeBox Middleware');
-    return (req, res, next) => {
+    return async (req, res, next) => {
         log.debug('Processing Request');
 
         const path = req.path.substring(1);
@@ -26,17 +26,17 @@ module.exports = (loglevel) => {
             //fire handler's preEvent
             if(_.isFunction(handler.preEvent)){
                 log.debug('Firing preEvent.');
-                const handlerValue = handler.preEvent();
+                const handlerValue = await handler.preEvent();
                 shouldContinue = handlerValue || handlerValue == null;
             }
 
             if(shouldContinue){
-                handler[fcn]();
+                await handler[fcn]();
 
                 //fire handler's postEvent
                 if(_.isFunction(handler.postEvent)){
                     log.debug('Firing postEvent.');
-                    handler.postEvent();
+                    await handler.postEvent();
                 }
             }
             
