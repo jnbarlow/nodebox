@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const NodeBox = require('../index');
+const Nodebox = require('../index').Nodebox;
 
-const nodeBox = new NodeBox({loglevel:'debug'});
+const nodeBox = new Nodebox({loglevel:'debug'});
 
 app.use(nodeBox.getMiddleware());
 

@@ -14,11 +14,12 @@ npm install nodebox-framework
 Then add it as middleware:
 
 ```javascript
-const  express  =  require('express');
-const  app  =  express();
-const  NodeBox  =  require('nodebox-framework');
-const  nodeBox  =  new NodeBox({loglevel:'debug'});
-	
+const express  =  require('express');
+const app  =  express();
+const Nodebox = require('nodebox-framework').Nodebox;
+
+const nodeBox = new Nodebox({loglevel:'debug'});
+
 app.use(nodeBox.getMiddleware());
 
 // Listen to port 3000
@@ -29,7 +30,7 @@ app.listen(3000, function () {
 The different loglevels available are:
 - TRACE
 - DEBUG
-- INFO
+- INFO (default)
 - WARN
 - ERROR
 
@@ -66,13 +67,8 @@ There are a couple of different ways to assign views, layouts, and variables but
 
 Below is an example handler:
 ```javascript
-class Main {
-    constructor(req, res) {
-        this.req = req;
-        this.res = res;
-        this.nbr = new NodeBox({loglevel:"debug"}).getRenderer(res);
-    }
-
+const NodeboxHandler = require('nodebox-framework').NodeboxHandler;
+class Main extends NodeboxHandler{
     preEvent() {
         console.log('preEvent happens here!');
     }
@@ -99,10 +95,16 @@ class Main {
 
 module.exports = Main;
 ```
-The first thing to note is that your handler must take the express `req` and `res` objects.  Next, you need an instance of the Nodebox Renderer, so initialize a Nodebox object and grab it's renderer (the same logging rules apply here):
+The first thing to note is that your handler must extend the `NodeboxHandler` class.  This gives you a built in constructor that take the express `req` and `res` objects, as well as a `loglevel`. The built in constructor also gives you an instance of the Nodebox Renderer at `this.nbr`. If you want to override the default log level, you can do so by adding a constructor to your class that looks like:
+
 ```javascript
-this.nbr = new NodeBox({loglevel:"debug"}).getRenderer(res);
+class MyClass extends NodeboxHandler {
+    constructor(req, res) {
+        super(req, res, 'debug'); //add your loglevel as the third argument
+    }
+}
 ```
+
 Finally, set up your handler method (in this case, I'm writing one for the default event: `main/home`:
 ```javascript
 home() {

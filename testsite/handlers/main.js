@@ -1,12 +1,6 @@
-const NodeBox = require('../../index');
+const NodeboxHandler = require('../../index').NodeboxHandler;
 
-class Main {
-    constructor(req, res) {
-        this.req = req;
-        this.res = res;
-        this.nbr = new NodeBox({loglevel:"debug"}).getRenderer(res);
-    }
-
+class Main extends NodeboxHandler {
     preEvent() {
         console.log('preEvent happens here!');
     }

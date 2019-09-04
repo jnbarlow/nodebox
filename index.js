@@ -1,10 +1,10 @@
 const middleware = require('./src/middleware');
 const Renderer = require('./src/render');
 
-class NodeBox {
+class Nodebox {
     constructor(options){
         this.options = {
-            loglevel: 'warn',
+            loglevel: 'info',
             ...options
         }
     }
@@ -18,4 +18,15 @@ class NodeBox {
     }
 }
 
-module.exports = NodeBox;
+class NodeboxHandler {
+    constructor(req, res, loglevel) {
+        this.req = req;
+        this.res = res;
+        this.nbr = new Nodebox({loglevel:loglevel || 'info'}).getRenderer(res);
+    }
+}
+
+module.exports = {
+    Nodebox,
+    NodeboxHandler
+};
