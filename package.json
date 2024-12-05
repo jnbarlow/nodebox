@@ -7,6 +7,9 @@
     "dev": "npm link nodebox-framework; cd testsite && nodemon --watch . --watch ../src",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
+  "bin": {
+    "nodebox": "./cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jnbarlow/nodebox.git"
@@ -25,6 +28,7 @@
   "homepage": "https://github.com/jnbarlow/nodebox#readme",
   "dependencies": {
     "colors": "^1.3.3",
+    "commander": "^12.1.0",
     "lodash": "^4.17.15",
     "loglevel": "^1.6.3",
     "loglevel-colors": "^1.0.5",

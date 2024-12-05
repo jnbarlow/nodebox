@@ -5,13 +5,26 @@ Lightweight Node/Express framework based on Coldbox
 Nodebox is a lightweight framework for Node that acts as an Express middleware to quickly set up routes based on file system paths.  Nodebox handles all of your routing, and follows simple rules to translate urls into object and function calls so you can worry about creating your project instead of how to wire everything up.
 
 ## Installation
-Pull Nodebox into your project:
+Pull Nodebox into your project and initialize it:
 
 ```
 npm install nodebox-framework
+nodebox init
 ```
 
-Then add it as middleware:
+This will set up the basic directory structure needed, which looks like:
+
+```
+    /
+  - handlers/
+  - views/
+  - layouts/
+  - public/ (this is where you can put assets like css or images)
+    - css
+
+```
+#### Manual Installation:
+After installing the package, add it as middleware:
 
 ```javascript
 const express  =  require('express');
@@ -20,7 +33,7 @@ const Nodebox = require('nodebox-framework').Nodebox;
 
 const nodeBox = new Nodebox({loglevel:'debug'});
 
-app.use(nodeBox.getMiddleware());
+app.use(nodeBox.getMiddleware(app));
 
 // Listen to port 3000
 app.listen(3000, function () {
@@ -48,7 +61,7 @@ For the above example, the directory structure would look like:
     - home.js
   - views/
   - layouts/
-``` 
+```
 
 Nodebox also supports more complex urls by nesting the directory structure.  A url like `/home/foo/bar` would be supported by a directory structure like:
 ```
@@ -61,7 +74,7 @@ Nodebox also supports more complex urls by nesting the directory structure.  A u
   - layouts
 ```
 ## Views, Layouts, and Handlers
-Views and layouts are composed using the template functionality of lodash.  As you can probably guess, these are located in the `views` and `layouts` folders respectively.  A handler doesn't necessarily need a layout, but it does need a view to know HOW to render.  
+Views and layouts are composed using the template functionality of lodash.  As you can probably guess, these are located in the `views` and `layouts` folders respectively.  A handler doesn't necessarily need a layout, but it does need a view to know HOW to render.
 
 There are a couple of different ways to assign views, layouts, and variables but the easiest is to initialize the Nodebox router with a config object that contains everything it needs.
 
@@ -124,10 +137,10 @@ home() {
 ```
 
 ### The Nodebox Renderer
-Let's break down the config object above.  
+Let's break down the config object above.
 
 - view: the view you want to render (located relative to `/views`)
-- layout: the layout you want to render (located relative to `/layouts`) 
+- layout: the layout you want to render (located relative to `/layouts`)
       - NOTE: There is a special built-in `json` layout you can use to render json data
  - useLayout: directs the renderer to use a layout or to just render the view
 - vars: template variables for replacement (lodash template).  All the variables in the `view` object are passed directly into the view template.
@@ -136,10 +149,15 @@ Finally, call render on the Nodebox renderer to send a response back through exp
 
 ### Example Layout
 ```html
-<h1> Layout!</h1>
-<h3><%= subtitle %></h3>
-<div style='padding:40px;border:1px solid black';>
-    <%= view %>
+<head>
+    <link rel='stylesheet' href='/css/main.css'/>
+</head>
+<div id="container">
+    <h1> Layout!</h1>
+    <h3><%= subtitle %></h3>
+    <div id="view">
+        <%= view %>
+    </div>
 </div>
 ```
 In the example above, you can see some of lodash's template engine at work.  You can reference any variable passed in the var structure here.  Also of note, the special `view` variable is the location in the page that the view is rendered.
@@ -176,7 +194,10 @@ The directory structure for the examples above would ultimately end up looking l
     - home.html
   - layouts/
     - layout.main.html
-``` 
+  - public/
+    - css/
+      -main.css
+```
 
 ## Advanced concepts
 As you might have noticed, there are `preEvent` and `postEvent` functions in the handler.  This is a special interface that Nodebox looks for in every handler that lets you run arbitrary code before and after a handler function is executed.  You can use this for things like checking to see if a user is authenticated before executing anything in that handler.

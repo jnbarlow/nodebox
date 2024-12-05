@@ -1,0 +1,13 @@
+#container {
+	background-color:#919beba3;
+	margin:50px;
+	padding:10px;
+}
+
+#view {
+	padding:40px;
+	border:1px solid black;
+	background-color:white;
+	margin:30px;
+	border-radius: 15px;
+}

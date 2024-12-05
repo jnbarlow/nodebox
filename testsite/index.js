@@ -4,7 +4,7 @@ const Nodebox = require('nodebox-framework').Nodebox;
 
 const nodeBox = new Nodebox({loglevel:'debug'});
 
-app.use(nodeBox.getMiddleware());
+app.use(nodeBox.getMiddleware(app));
 
 // Listen to port 3000
 app.listen(3000, function () {

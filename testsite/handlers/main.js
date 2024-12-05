@@ -1,4 +1,4 @@
-const NodeboxHandler = require('../../index').NodeboxHandler;
+const NodeboxHandler = require('nodebox-framework').NodeboxHandler;
 
 class Main extends NodeboxHandler {
     preEvent() {

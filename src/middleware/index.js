@@ -1,8 +1,12 @@
 const pathResolver = require('path');
 const _ = require('lodash');
+const express = require('express');
 
-module.exports = (loglevel) => {
+module.exports = (loglevel, app) => {
     const log = require('loglevel-colors')('NodeBox Middleware', loglevel);
+    //automatically load public as a static path
+    app.use(express.static(pathResolver.resolve('./public')));
+
     return async (req, res, next) => {
         log.debug('Processing Request');
 
