@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const Nodebox = require('../index').Nodebox;
+const Nodebox = require('nodebox-framework').Nodebox;
 
 const nodeBox = new Nodebox({loglevel:'debug'});
 
