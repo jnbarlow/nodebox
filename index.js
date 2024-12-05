@@ -9,8 +9,8 @@ class Nodebox {
         }
     }
 
-    getMiddleware() {
-        return middleware(this.options.loglevel);
+    getMiddleware(app) {
+        return middleware(this.options.loglevel, app);
     }
 
     getRenderer(res) {

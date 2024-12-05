@@ -13,7 +13,7 @@ class Renderer {
         this.layout = 'layout.main.html';
         this.view = '';
         this.useLayout = true;
-        this.log = require('../logger')(this.options.loglevel, 'NodeBox Renderer');
+        this.log = require('loglevel-colors')('NodeBox Renderer', this.options.loglevel);
         this.res = res;
         this.vars = {};
 
@@ -31,7 +31,7 @@ class Renderer {
      *          viewvar1: 'viewfoo'
      *      }
      *  }
-     * @param {} vars 
+     * @param {} vars
      */
     setVars(vars){
         this.log.debug('Setting vars');
@@ -41,7 +41,7 @@ class Renderer {
     /**
      * Sets the layout to use for this render (located in <sitehome>/layouts). Default layout is layout.main.html
      * You may also include directories.
-     * @param {*} layout 
+     * @param {*} layout
      */
     setLayout(layout){
         this.log.debug(`Setting layout to ${layout}.`);
@@ -50,7 +50,7 @@ class Renderer {
 
     /**
      * Sets the useLayout flag
-     * @param {*} useLayout 
+     * @param {*} useLayout
      */
     setUseLayout(useLayout){
         this.log.debug(`Setting useLayout to ${useLayout}.`);
@@ -58,9 +58,9 @@ class Renderer {
     }
 
     /**
-     * Sets the view for this render (located in <sitehome>/views). 
+     * Sets the view for this render (located in <sitehome>/views).
      * You may also include directories
-     * @param {*} view 
+     * @param {*} view
      */
     setView(view){
         this.log.debug(`Setting view to ${view}.`);
@@ -69,7 +69,7 @@ class Renderer {
 
     /**
      * set all options with one call
-     * @param {} vars 
+     * @param {} vars
      */
     set(vars){
         if(!_.isUndefined(vars.view)){
