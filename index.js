@@ -1,5 +1,6 @@
 const middleware = require('./src/middleware');
 const Renderer = require('./src/render');
+const log = require('loglevel-colors');
 
 class Nodebox {
     constructor(options){
@@ -23,6 +24,7 @@ class NodeboxHandler {
         this.req = req;
         this.res = res;
         this.nbr = new Nodebox({loglevel:loglevel || 'info'}).getRenderer(res);
+        this.log = log(this.constructor.name, loglevel || 'info');
     }
 }
 

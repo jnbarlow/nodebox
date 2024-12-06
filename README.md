@@ -9,19 +9,24 @@ Pull Nodebox into your project and initialize it:
 
 ```
 npm install nodebox-framework
-nodebox init
+npx nodebox init
 ```
 
-This will set up the basic directory structure needed, which looks like:
+This will set up your package.json and the basic directory structure needed, which looks like:
 
 ```
     /
   - handlers/
   - views/
   - layouts/
-  - public/ (this is where you can put assets like css or images)
+  - public/ (this is where you can put assets like css, images, or external javascript files)
     - css
 
+```
+
+To see the test site, run:
+```
+npm start
 ```
 #### Manual Installation:
 After installing the package, add it as middleware:
@@ -81,7 +86,8 @@ There are a couple of different ways to assign views, layouts, and variables but
 Below is an example handler:
 ```javascript
 const NodeboxHandler = require('nodebox-framework').NodeboxHandler;
-class Main extends NodeboxHandler{
+
+class Main extends NodeboxHandler {
     preEvent() {
         console.log('preEvent happens here!');
     }
@@ -91,6 +97,7 @@ class Main extends NodeboxHandler{
     }
 
     home() {
+        this.log.info('In Home');
         this.nbr.set({
             view: 'home.html',
             layout: 'layout.main.html',
@@ -104,11 +111,22 @@ class Main extends NodeboxHandler{
         })
         this.nbr.render();
     }
+
+    json() {
+        this.nbr.set({
+            layout: 'json',
+            vars: {
+                foo:'foo',
+                bar:'bar'
+            }
+        })
+        this.nbr.render();
+    }
 }
 
 module.exports = Main;
 ```
-The first thing to note is that your handler must extend the `NodeboxHandler` class.  This gives you a built in constructor that take the express `req` and `res` objects, as well as a `loglevel`. The built in constructor also gives you an instance of the Nodebox Renderer at `this.nbr`. If you want to override the default log level, you can do so by adding a constructor to your class that looks like:
+The first thing to note is that your handler must extend the `NodeboxHandler` class.  This gives you a built in constructor that take the express `req` and `res` objects, as well as a `loglevel`. The built in constructor also gives you an instance of the Nodebox Renderer at `this.nbr` and the logger at `this.log`. If you want to override the default log level, you can do so by adding a constructor to your class that looks like:
 
 ```javascript
 class MyClass extends NodeboxHandler {
@@ -170,7 +188,7 @@ In the example above, you can see some of lodash's template engine at work.  You
 Much in the same way the layout works, the view also uses the lowdash templating.   In addition, you can see the `viewvar` variable from the original structure being used here.
 
 ### Rendering JSON
-Here is an example of a handler method that returns json.  Note, what ever is in the vars object gets sent to the browser:
+Here is an example of a handler method that returns json.  Note, whatever is in the vars object gets sent to the browser:
 ```javascript
 json() {
     this.nbr.set({
