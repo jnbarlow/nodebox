@@ -10,9 +10,19 @@ program
 	.action(async () => {
 		console.log('Initializing Nodebox...');
 		execSync('npm install express');
+
 		copyDirSync('node_modules/nodebox-framework/testsite/', '.');
 		console.log('Test Site copied.');
-		console.log(execSync('ls -la', {encoding: 'utf-8'}));
+
+		console.log('updating package.json...');
+		const data = fs.readFileSync('package.json', 'utf8');
+		const jsonData = JSON.parse(data);
+		jsonData['scripts']['start'] = 'node index.js';
+		const updatedJsonString = JSON.stringify(jsonData, null, 2);
+		fs.writeFileSync('package.json', updatedJsonString);
+		console.log('...done.');
+
+		console.log('To start site, run: npm start');
 
 });
 

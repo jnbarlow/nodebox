@@ -10,6 +10,7 @@ class Main extends NodeboxHandler {
     }
 
     home() {
+        this.log.info('In Home');
         this.nbr.set({
             view: 'home.html',
             layout: 'layout.main.html',
